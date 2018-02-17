@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script src="jquery-3.2.1.min.js"></script>
+
+<script>
+$(document).ready(function(e) {
+    
+	$("#add").click(function(e) {
+        //alert("sss");
+		/*
+		data types
+		numbers
+		integers
+			whole numbers
+			20, 1000, 213
+		float
+			decimal numbers, point numbers, fractions
+			21.23, 12.33
+		
+		strings
+			anything written in quotes " '
+			numeric strings
+				"20", "1000", "213"
+			alpha-numeric strings
+				"aa", "ss22"
+				
+			boolean
+				false, true
+			*/	
+		//vari-ables
+		//declare a variable
+		var num1;
+		var num2;
+		var result;
+		
+		num1 = 20;
+		num2 = 10;
+		result = num1 + num2;
+		
+		$("#num1").val(num1);
+		$("#num2").val(num2);
+		$("#result").html(result);
+    });
+});
+
+
+</script>
+
+</head>
+
+<body>
+<input type="text" id="num1" placeholder="Num1"><br>
+<input type="text" id="num2" placeholder="Num2"><br>
+<div id="result">RESULT</div>
+<input type="button" id="add" value="Add"><br>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+#full-page{
+	height:1200px;
+	background-color:yellow;
+}
+.box{
+	height:100px;
+}
+#a{
+	background-color:red;
+}
+
+#b{
+	background-color:green;
+}
+
+#c{
+	background-color:blue;
+}
+
+#d{
+	background-color:pink;
+}
+
+#e{
+	background-color:orange;
+}
+
+#f{
+	background-color:purple;
+}
+
+#g{
+	background-color:lightblue;
+}
+
+#h{
+	background-color:lightgreen;
+}
+
+
+
+
+
+

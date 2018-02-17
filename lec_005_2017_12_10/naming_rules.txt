@@ -1,0 +1,9 @@
+always starts with alphabet
+can contain only alphabets, digits and underscores
+always small case
+
+file name
+folder name
+id
+class
+name

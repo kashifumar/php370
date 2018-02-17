@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script src="jquery-3.2.1.min.js"></script>
+
+<script>
+$(document).ready(function(e) {
+    
+	$("#add").click(function(e) {
+		var num1, num2, result;
+		
+		num1 = 20;
+		num2 = 10;		
+
+		//num1 = "20";
+		//num2 = "10";		
+		
+		//concatenation
+		//num1 = "abc";
+		//num2 = "def";
+		
+		result = num1 + num2;
+		
+		$("#num1").val(num1);
+		$("#num2").val(num2);
+		$("#result").html(result);
+    });
+});
+
+
+</script>
+
+</head>
+
+<body>
+<input type="text" id="num1" placeholder="Num1"><br>
+<input type="text" id="num2" placeholder="Num2"><br>
+<div id="result">RESULT</div>
+<input type="button" id="add" value="Add"><br>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

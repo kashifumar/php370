@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+
+<script src="jquery-3.2.1.min.js"></script>
+
+<script>
+function display(e){
+//       alert(e.type);
+       //alert(e.target.type);
+	  
+	var id = $(this).prop("id");
+	  //alert(id);
+	  
+	  
+	  
+	switch(id){
+		case "b1":
+		case "b2":
+					
+		break;
+		
+		case "s1":
+			if(e.type == "click"){
+				
+				return;
+			}
+		break;	
+	}
+	alert("Hello");
+}
+
+$(document).ready(function(e) {
+/*
+	$("#b1, #b2, #s1").on("click, mouseleave, change", function(e){
+		
+	});
+	*/
+	
+	$("#b1, #b2, #s1").on("click change", display);
+
+	
+    
+});
+</script>
+</head>
+
+<body>
+<input type="button" id="b1" value="Button B1"><br>
+<input type="button" id="b2" value="Button B2"><br>
+<select id="s1">
+	<option value="0">S1</option>
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+fireshot
+
+Menu Bar
+View->Clear Slices
+View->Clear Guides
+Image->Image Size
+View->Rulers
+Edit->Preferences->Units & Rulers
+		Units
+			Rulers: pixels
+			Type: pixels
+
+Toolbar
+Slice
+Move
+Type
+Eyedropper
+
+Zoom
+Alt+Mouse Wheel
+Ctrl +/-
+
+
+Step Backward
+Ctrl+Alt+Z
+
+https://www.google.com/search?safe=off&client=firefox-b-ab&ei=joo_Wrm-NMn1UpLVroAD&q=psd+to+html+videos+-bootstrap+-responsive&oq=psd+to+html+videos+-bootstrap+-responsive&gs_l=psy-ab.3...12342.14881.0.15213.12.10.0.0.0.0.409.1074.2-3j0j1.4.0....0...1.1.64.psy-ab..8.0.0....0.nqjg-vqTF6w
+
+
+
+
+
+
+
+
+
+

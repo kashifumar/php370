@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script src="jquery-3.2.1.min.js"></script>
+
+<script>
+$(document).ready(function(e) {
+						//size/count/length
+var months = new Array(4);
+       //index/key/offset
+months[0] = "January";
+months[1] = "February";
+months[2] = "March";
+months[3] = "April";
+
+
+var output = "";
+
+output += "<ol>";
+
+for(var i = 0 ; i < months.length ; i++)
+{
+	output += "<li>" + months[i] + "</li>";
+}
+
+output += "</ol>";
+$("#monthC").html(output);
+    
+});
+
+</script>
+
+</head>
+
+<body>
+<span id="monthC"></span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

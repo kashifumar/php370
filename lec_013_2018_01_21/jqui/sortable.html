@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Sortable - Default functionality</title>
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+  </style>
+  <script src="js/jquery-1.12.4.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#sortable" ).sortable({
+ 		stop: function( event, ui ) {
+			var lis = $("#sortable > li");
+			var i = 0;
+			$.each(lis, function(index, obj){
+				//console.log(obj);
+				$("#sortable > li").eq(i).children("span").data("sort-no", i+1);
+				$("#sortable > li").eq(i).children("span").html(i+1);
+				$("#sortable > li").eq(i).children("[type=hidden]").val(i+1);
+				i++;
+			});
+		}
+	});
+	
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
+</head>
+<body>
+ 
+<ul id="sortable">
+  <li class="ui-state-default">
+  <span class="sort_no" data-sort-no='1'>1</span>
+  <input type="text" value="A">
+  <input type="hidden" value="1">
+  </li>
+  <li class="ui-state-default">
+  <span class="sort_no" data-sort-no='2'>2</span><input type="text" value="B">
+  <input type="hidden" value="2">
+  </li>
+  <li class="ui-state-default">
+  <span class="sort_no" data-sort-no='3'>3</span><input type="text" value="C">
+  <input type="hidden" value="3">
+  </li>
+  <li class="ui-state-default">
+  <span class="sort_no" data-sort-no='4'>4</span><input type="text" value="D">
+  <input type="hidden" value="4">
+  </li>
+  <li class="ui-state-default">
+  <span class="sort_no" data-sort-no='5'>5</span><input type="text" value="E">
+  <input type="hidden" value="5">
+  </li>
+  <li class="ui-state-default">
+  <span class="sort_no" data-sort-no='6'>6</span><input type="text" value="F">
+  <input type="hidden" value="6">
+  </li>
+</ul>
+ 
+ 
+</body>
+</html>

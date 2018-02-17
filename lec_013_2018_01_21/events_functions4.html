@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+
+<script src="jquery-3.2.1.min.js"></script>
+
+<script>
+function display(){
+        alert("Hello");
+}
+
+$(document).ready(function(e) {
+	
+	
+	$("#b1").click(display);
+
+	$("#b2").click(display);
+		
+	$("#s1").change(display);
+	
+    
+});
+</script>
+</head>
+
+<body>
+<input type="button" id="b1" value="B1"><br>
+<input type="button" id="b2" value="B2"><br>
+<select id="s1">
+	<option value="0">S1</option>
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script src="jquery-3.2.1.min.js"></script>
+
+<script>
+/*
+comment
+*/
+//comment
+
+//$();
+//$(document);
+//$(document).ready();
+//$(document).ready(function(e){});
+$(document).ready(function(e){
+	
+	//your code
+	//object = data + functions	
+	//object = properties + functions	
+	/*
+	object based - vb6, basic javascript
+	
+	object oriented
+	- PHP - C#, C++, Java, Advanced JavaScript
+	*/
+	//window.alert("Hello");
+	//window.confirm("Hello");
+	//window.prompt("Hello");
+	//document.write("Hello");
+	//window.jQuery(parameter);
+	
+	//Document Object Model
+	//DOM
+	//window.jQuery("#click");
+	//jQuery("#click");
+	//window.$("#click");
+	//alias
+				//event name
+	$("#click").click(function(e){
+		
+					//function
+		//$("#box").hide();	
+		/*
+		$("#box").hide(2000);
+		$("#box").show(2000);
+		$("#box").toggle(2000);
+		
+		$("#box").fadeOut(2000);
+		$("#box").fadeIn(2000);
+		$("#box").fadeToggle(2000);
+
+		$("#box").slideUp(2000);
+		$("#box").slideDown(2000);
+		$("#box").slideToggle(2000);
+		*/
+		
+		//$("#box").css("background-color", "blue");
+		//$("#box").addClass("circle");
+		
+		//$("#box").html("circle");
+		$("#box").append("<br>circle");
+	});
+	
+	
+	
+	
+	
+});
+/*
+$(document).ready(function(e) {
+    
+});
+*/
+
+
+
+</script>
+
+<style media="all" type="text/css">
+#box{
+	height:200px;
+	background-color:red;
+}
+
+.circle{
+	width:200px;
+	border-radius:100px;
+}
+</style>
+
+</head>
+
+<body>
+<input type="button" value="Click" id="click">
+<div id="box"></div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

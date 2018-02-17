@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<style media="all" type="text/css">
+
+div{
+	height:200px;
+	width:200px;
+	position:absolute;
+	top:10px;
+	left:10px;
+	background-color:red;
+	/*
+	margin-top:200px;
+	margin-left:200px;
+	*/
+	animation-name:myani2;
+	animation-duration:4s;
+	/*animation-delay:2s;/**/
+	/*animation-iteration-count:3;/**/
+	animation-iteration-count:infinite;
+	animation-direction:alternate;
+}
+
+@keyframes myani2
+{
+	0%{left:50px;width:250px;background-color:green;}
+	25%{left:75px;width:300px;background-color:blue;}
+	50%{left:100px;width:350px;background-color:pink;}
+	75%{left:125px;width:400px;background-color:orange;}
+	100%{left:150px;width:450px;background-color:purple;}
+	
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="box box2"></div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

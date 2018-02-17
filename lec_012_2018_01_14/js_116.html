@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script src="jquery-3.2.1.min.js"></script>
+
+<script>
+$(document).ready(function(e) {
+						//size/count/length
+var months = new Array("January", "February", "March");
+
+months[months.length] = "April";
+months[months.length] = "May";
+months[months.length] = "June";
+months[months.length] = "July";
+months[months.length] = "August";
+months[months.length] = "September";
+months[months.length] = "October";
+months[months.length] = "November";
+months[months.length] = "December";
+
+
+var output = "";
+
+output += "<ol>";
+
+for(var i = 0 ; i < months.length ; i++)
+{
+	output += "<li>" + months[i] + "</li>";
+}
+
+output += "</ol>";
+$("#monthC").html(output);
+  
+  
+//  $("span#monthC > ol > li:nth-of-type(2n+1").addClass("even");  
+//  $("span#monthC > ol > li:nth-of-type(2n").addClass("odd");  
+
+  //$("span#monthC > ol > li:visible").addClass("even");  
+  //$("span#monthC > ol > li:hidden").addClass("even");  
+  
+  $("span#monthC > ol > li:even").addClass("even");  
+  $("span#monthC > ol > li:odd").addClass("odd");  
+  
+  $("span#monthC > ol > li").click(function(e) {
+   		$(this).slideUp(1000);	 
+   		//$(this).remove();	 
+	});
+});
+
+</script>
+
+<style media="all" type="text/css">
+.even{
+	font-weight:bold;
+}
+
+.odd{
+	font-style:italic;
+}
+
+</style>
+</head>
+
+<body>
+<span id="monthC"></span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

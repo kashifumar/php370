@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script src="jquery-3.2.1.min.js"></script>
+
+<script>
+$(document).ready(function(e) {
+
+var output = "";
+
+output += "<select id='month' name='month'>";
+output += "<option value=''>Month</option>";
+
+/*
+for(var i = 1 ; i <= 12 ; i++)
+{
+	output += "<option value='" + i + "'>" + i + "</option>";
+}
+*/
+/*
+var i = 1 ;
+while( i <= 12 )
+{
+	output += "<option value='" + i + "'>" + i + "</option>";
+	
+	i++; 
+}
+*/
+
+var i = 1 ;
+do
+{
+	output += "<option value='" + i + "'>" + i + "</option>";
+	
+	i++; 
+}while( i <= 12 );
+
+
+
+
+output += "</select>";
+$("#monthC").html(output);
+    
+});
+
+</script>
+
+</head>
+
+<body>
+<span id="monthC"></span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

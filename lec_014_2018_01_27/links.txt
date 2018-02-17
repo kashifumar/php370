@@ -1,0 +1,12 @@
+https://cssauthor.com/bootstrap-templates/
+
+
+https://www.apachefriends.org/download.html
+or 
+http://www.wampserver.com/en/
+
+https://netbeans.org/downloads/
+
+
+https://getcomposer.org/download/
+https://git-scm.com/downloads

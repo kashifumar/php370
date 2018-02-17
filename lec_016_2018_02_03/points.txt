@@ -1,0 +1,12 @@
+xampp\htdocs\evs\php370
+
+wampp\www\evs\php370
+
+http://localhost/evs/php370/
+
+
+constants
+variable testing
+reference
+identity
+quotes
