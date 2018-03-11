@@ -1,6 +1,10 @@
 <?php
 
+require_once 'DBTrait.php';
+
 class User {
+
+    use DBTrait;
 
     private $id;
     private $user_name;
@@ -392,11 +396,11 @@ class User {
 
 
 //        var_dump($image_data);
-//        
+//
 //        echo('<pre>');
 //        print_r($image_data);
 //        echo('</pre>');
-//        die;        
+//        die;
     }
 
     private function getProfile_Image() {
@@ -412,18 +416,19 @@ class User {
     }
 
     public function create_user() {
-            /*
-
         $obj_db = $this->get_obj_db();
 
-//        $query_insert = "insert into users "
-//                . " (id, email, user_name, password) "
-//                . " values "
-//                . " ( NULL, '$this->email', '$this->user_name', '$this->password')";
+        /*
+          $query_insert_user = "insert into users "
+          . " (id, user_name, email, password) "
+          . " values "
+          . " (NULL, '$this->user_name', '$this->email', '$this->password')";
+         * 
+         */
 
         $query_insert_user = "insert into users "
                 . " values "
-                . " ( NULL, '$this->email', '$this->user_name', '$this->password')";
+                . " (NULL, '$this->user_name', '$this->email', '$this->password')";
 
         $obj_db->query($query_insert_user);
         if ($obj_db->errno) {
@@ -432,192 +437,193 @@ class User {
 
         $user_id = $obj_db->insert_id;
 
-        $query_inser_profile = " insert into userprofiles "
+        $query_insert_profile = " insert into userprofiles "
                 . " (id, user_id) "
                 . " values "
                 . " (NULL, $user_id)";
-        $obj_db->query($query_inser_profile);
+        $obj_db->query($query_insert_profile);
         if ($obj_db->errno) {
             throw new Exception("Insert New Profile Error - $obj_db->error - $obj_db->errno");
-        }*/
-    }
-/*
-    public function login($remember) {
-
-        $obj_db = $this->get_obj_db();
-
-
-//        $query_select_login = "select [column_names] from [table_name] [filter_rows]";
-//        $query_select_login = "select * from users";
-//        $query_select_login = "select id, email, user_name from users";
-        $query_select_login = "select id, email, user_name "
-                . " from users "
-                . " where user_name = '$this->user_name' "
-                . " and password = '$this->password' ";
-
-        $result = $obj_db->query($query_select_login);
-        if ($obj_db->errno) {
-            throw new Exception("Select User Error - $obj_db->error - $obj_db->errno");
-        }
-        if ($result->num_rows == 0) {
-            throw new Exception("*Login Failed");
-        }
-        $user_data = $result->fetch_object();
-
-        $this->id = $user_data->id;
-        $this->email = $user_data->email;
-        $this->user_name = $user_data->user_name;
-        $this->password = "";
-
-        $str_user = serialize($this);
-        $_SESSION['obj_user'] = $str_user;
-
-        if ($remember) {
-            $expire = time() + (60 * 60 * 24 * 15);
-            setcookie("obj_user", $str_user, $expire, "/");
-//            setcookie("obj_user", $str_user, $expire, "/evs/php366/");
         }
     }
 
-    public function logout() {
-        if (isset($_SESSION['obj_user'])) {
-            unset($_SESSION['obj_user']);
-        }
-        if (isset($_COOKIE['obj_user'])) {
-            setcookie("obj_user", "dasds", 1, "/");
-//            setcookie("obj_user", "dasds", 1, "/evs/php366/");
-        }
-    }
+    /*
+      public function login($remember) {
 
-    public function profile() {
-
-        if ($this->id == 0) {
-            throw new Exception("*You Must Login");
-        }
-        $obj_db = $this->get_obj_db();
-        //        $query_select = "select id, email, user_name, signup_date_time, status "
-        //                . " from users "
-        //                . " left join userprofiles "
-        //                . " on users.id = userprofiles.user_id "
-        //                . " where users.id = $this->id";
-        //alias
-        //        $query_select = "select u.id user_id, u.email, u.user_name, u.signup_date_time, "
-        //                . " u.status, up.id profile_id, up.user_id, up.first_name "
-        //                . " from users u "
-        //                . " left join userprofiles up "
-        //                . " on u.id = up.user_id "
-        //                . " where u.id = $this->id";
-
-//             $query_select = "select u.id user_id, u.email, u.user_name, u.signup_date_time, "
-//          . " up.id profile_id, up.user_id, up.first_name "
-//          . " from users u "
-//          . " join userprofiles up "
-//          . " inner join userprofiles up "
-//          . " left join userprofiles up "
-//          . " right join userprofiles up "
-//          . " on u.id = up.user_id "
-//          . " where u.id = $this->id";
-         
-        $query_select = "select users.id user_id, "
-                . " users.user_name, users.email, "
-                . " up.id profile_id, up.first_name,  "
-                . " up.middle_name, "
-                . " up.last_name, up.gender, date_format(up.date_of_birth, '%d-%m-%Y') date_of_birth, "
-                . " up.city_id, up.state_id, "
-                . " up.country_id "
-                . " from users "
-                . " join userprofiles up "
-                . " on users.id = up.user_id "
-                . " where users.id = $this->id";
-        //mysql resource
-        $result = $obj_db->query($query_select);
-        if ($obj_db->errno) {
-            throw new Exception("Profile Select User Error - $obj_db->error - $obj_db->errno");
-        }
-
-        if (!$result->num_rows) {
-            throw new Exception("*User Not Found");
-        }
-
-        $data = $result->fetch_object();
-
-        $this->user_name = $data->user_name;
-        $this->email = $data->email;
-        $this->gender = $data->gender;
-//        $this->date_of_birth = date("d-m-Y", strtotime($data->date_of_birth));
-        $this->date_of_birth = $data->date_of_birth;
-        $this->first_name = $data->first_name;
-        $this->middle_name = $data->middle_name;
-        $this->last_name = $data->last_name;
-        $this->last_name = $data->last_name;
-        $this->state_id = $data->state_id;
-        $this->city_id = $data->city_id;
-        $this->country_id = $data->country_id;
-    }
-
-    public function send_mail($subject, $msg) {
-        //          mail($this->email, $subject, $msg);
-        //        
-        //         * https://www.sitepoint.com/advanced-email-php/
-        //         * http://stackoverflow.com/questions/15250140/php-mail-header
-        //         * https://www.tutorialspoint.com/php/php_sending_emails.htm
-        //         * https://www.lifewire.com/how-to-send-email-with-extra-headers-in-php-1171196
-        //         * http://www.htmlite.com/php029.php
-        //         * https://css-tricks.com/sending-nice-html-email-with-php/
-        //         * http://php.net/manual/en/function.mail.php
-        // 
-
-        $header = "To: The Receiver <$this->email>\n" .
-                "From: The Sender <admin@php350.net>\n" .
-                "MIME-Version: 1.0\n" .
-                "Content-type: text/html; charset=iso-8859-1";
-        mail($this->email, $subject, $msg, $header);
-    }
-
-    public function update_profile() {
-        $obj_db = $this->get_obj_db();
-
-//        $date_parts = explode("-", $this->date_of_birth);
-//        list($day, $month, $year) = $date_parts; 
-//        $date_of_birth = "$year-$month-$day";
-//        $ts_dob = mktime(0, 0, 0, $month, $day, $year);
-
-        $ts_dob = strtotime($this->date_of_birth);
-
-        $date_of_birth = date("Y-m-d", $ts_dob);
+      $obj_db = $this->get_obj_db();
 
 
-        $query_update = "update userprofiles set "
-                . " first_name = '$this->first_name' "
-                . ", middle_name = '$this->middle_name' "
-                . ", last_name = '$this->last_name' "
-                . ", contact_number = '$this->contact_number' "
-                . ", gender = '$this->gender' "
-                . ", date_of_birth = '$date_of_birth' "
-                . ", country_id = '$this->country_id' "
-                . ", state_id = '$this->state_id' "
-                . ", city_id = '$this->city_id' "
-                . " where user_id = $this->id";
-//                echo($query_update);
-//                die;
-        $result = $obj_db->query($query_update);
-        if ($obj_db->errno) {
-            throw new Exception("Update Profile User Error - $obj_db->error - $obj_db->errno");
-        }
-    }
+      //        $query_select_login = "select [column_names] from [table_name] [filter_rows]";
+      //        $query_select_login = "select * from users";
+      //        $query_select_login = "select id, email, user_name from users";
+      $query_select_login = "select id, email, user_name "
+      . " from users "
+      . " where user_name = '$this->user_name' "
+      . " and password = '$this->password' ";
 
-    public function update_password() {
-        $obj_db = $this->get_db_conn();
-        $query_update = "update users set "
-                . " password = '$this->password' "
-                . " where user_id = $this->id";
+      $result = $obj_db->query($query_select_login);
+      if ($obj_db->errno) {
+      throw new Exception("Select User Error - $obj_db->error - $obj_db->errno");
+      }
+      if ($result->num_rows == 0) {
+      throw new Exception("*Login Failed");
+      }
+      $user_data = $result->fetch_object();
 
-        $result = $obj_db->query($query_update);
-        if ($obj_db->errno) {
-            throw new Exception("Update Password Error - $obj_db->error - $obj_db->errno");
-        }
-    }
-*/
+      $this->id = $user_data->id;
+      $this->email = $user_data->email;
+      $this->user_name = $user_data->user_name;
+      $this->password = "";
+
+      $str_user = serialize($this);
+      $_SESSION['obj_user'] = $str_user;
+
+      if ($remember) {
+      $expire = time() + (60 * 60 * 24 * 15);
+      setcookie("obj_user", $str_user, $expire, "/");
+      //            setcookie("obj_user", $str_user, $expire, "/evs/php366/");
+      }
+      }
+
+      public function logout() {
+      if (isset($_SESSION['obj_user'])) {
+      unset($_SESSION['obj_user']);
+      }
+      if (isset($_COOKIE['obj_user'])) {
+      setcookie("obj_user", "dasds", 1, "/");
+      //            setcookie("obj_user", "dasds", 1, "/evs/php366/");
+      }
+      }
+
+      public function profile() {
+
+      if ($this->id == 0) {
+      throw new Exception("*You Must Login");
+      }
+      $obj_db = $this->get_obj_db();
+      //        $query_select = "select id, email, user_name, signup_date_time, status "
+      //                . " from users "
+      //                . " left join userprofiles "
+      //                . " on users.id = userprofiles.user_id "
+      //                . " where users.id = $this->id";
+      //alias
+      //        $query_select = "select u.id user_id, u.email, u.user_name, u.signup_date_time, "
+      //                . " u.status, up.id profile_id, up.user_id, up.first_name "
+      //                . " from users u "
+      //                . " left join userprofiles up "
+      //                . " on u.id = up.user_id "
+      //                . " where u.id = $this->id";
+
+      //             $query_select = "select u.id user_id, u.email, u.user_name, u.signup_date_time, "
+      //          . " up.id profile_id, up.user_id, up.first_name "
+      //          . " from users u "
+      //          . " join userprofiles up "
+      //          . " inner join userprofiles up "
+      //          . " left join userprofiles up "
+      //          . " right join userprofiles up "
+      //          . " on u.id = up.user_id "
+      //          . " where u.id = $this->id";
+
+      $query_select = "select users.id user_id, "
+      . " users.user_name, users.email, "
+      . " up.id profile_id, up.first_name,  "
+      . " up.middle_name, "
+      . " up.last_name, up.gender, date_format(up.date_of_birth, '%d-%m-%Y') date_of_birth, "
+      . " up.city_id, up.state_id, "
+      . " up.country_id "
+      . " from users "
+      . " join userprofiles up "
+      . " on users.id = up.user_id "
+      . " where users.id = $this->id";
+      //mysql resource
+      $result = $obj_db->query($query_select);
+      if ($obj_db->errno) {
+      throw new Exception("Profile Select User Error - $obj_db->error - $obj_db->errno");
+      }
+
+      if (!$result->num_rows) {
+      throw new Exception("*User Not Found");
+      }
+
+      $data = $result->fetch_object();
+
+      $this->user_name = $data->user_name;
+      $this->email = $data->email;
+      $this->gender = $data->gender;
+      //        $this->date_of_birth = date("d-m-Y", strtotime($data->date_of_birth));
+      $this->date_of_birth = $data->date_of_birth;
+      $this->first_name = $data->first_name;
+      $this->middle_name = $data->middle_name;
+      $this->last_name = $data->last_name;
+      $this->last_name = $data->last_name;
+      $this->state_id = $data->state_id;
+      $this->city_id = $data->city_id;
+      $this->country_id = $data->country_id;
+      }
+
+      public function send_mail($subject, $msg) {
+      //          mail($this->email, $subject, $msg);
+      //
+      //         * https://www.sitepoint.com/advanced-email-php/
+      //         * http://stackoverflow.com/questions/15250140/php-mail-header
+      //         * https://www.tutorialspoint.com/php/php_sending_emails.htm
+      //         * https://www.lifewire.com/how-to-send-email-with-extra-headers-in-php-1171196
+      //         * http://www.htmlite.com/php029.php
+      //         * https://css-tricks.com/sending-nice-html-email-with-php/
+      //         * http://php.net/manual/en/function.mail.php
+      //
+
+      $header = "To: The Receiver <$this->email>\n" .
+      "From: The Sender <admin@php350.net>\n" .
+      "MIME-Version: 1.0\n" .
+      "Content-type: text/html; charset=iso-8859-1";
+      mail($this->email, $subject, $msg, $header);
+      }
+
+      public function update_profile() {
+      $obj_db = $this->get_obj_db();
+
+      //        $date_parts = explode("-", $this->date_of_birth);
+      //        list($day, $month, $year) = $date_parts;
+      //        $date_of_birth = "$year-$month-$day";
+      //        $ts_dob = mktime(0, 0, 0, $month, $day, $year);
+
+      $ts_dob = strtotime($this->date_of_birth);
+
+      $date_of_birth = date("Y-m-d", $ts_dob);
+
+
+      $query_update = "update userprofiles set "
+      . " first_name = '$this->first_name' "
+      . ", middle_name = '$this->middle_name' "
+      . ", last_name = '$this->last_name' "
+      . ", contact_number = '$this->contact_number' "
+      . ", gender = '$this->gender' "
+      . ", date_of_birth = '$date_of_birth' "
+      . ", country_id = '$this->country_id' "
+      . ", state_id = '$this->state_id' "
+      . ", city_id = '$this->city_id' "
+      . " where user_id = $this->id";
+      //                echo($query_update);
+      //                die;
+      $result = $obj_db->query($query_update);
+      if ($obj_db->errno) {
+      throw new Exception("Update Profile User Error - $obj_db->error - $obj_db->errno");
+      }
+      }
+
+      public function update_password() {
+      $obj_db = $this->get_db_conn();
+      $query_update = "update users set "
+      . " password = '$this->password' "
+      . " where user_id = $this->id";
+
+      $result = $obj_db->query($query_update);
+      if ($obj_db->errno) {
+      throw new Exception("Update Password Error - $obj_db->error - $obj_db->errno");
+      }
+      }
+     */
 }
 
 ?>
