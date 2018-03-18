@@ -1,6 +1,8 @@
 <?php
-trait DBTrait {
-    protected static function get_obj_db() {
+
+class DB {
+
+    protected function get_obj_db() {
         $host = "localhost";
         $user = "root";
         $password = "";
@@ -20,4 +22,5 @@ trait DBTrait {
 
         return $obj_db;
     }
+
 }
