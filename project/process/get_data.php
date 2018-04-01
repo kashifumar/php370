@@ -42,6 +42,7 @@ else if (isset($_POST['state_id'])) {
 //}
 
 $str_response = json_encode($response);
+//return $str_response;
 echo($str_response);
 
 

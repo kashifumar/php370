@@ -98,10 +98,12 @@ class User {
     }
 
     private function setPassword(string $password) {
-        $reg = "/^[a-z][a-z0-9]{5,15}$/i";
-        if (!preg_match($reg, $password)) {
-            throw new Exception("*Invalid/Missing Password");
-        }
+//        $reg = "/^[a-z][a-z0-9]{5,15}$/i";
+//        if (!preg_match($reg, $password)) {
+//            throw new Exception("*Invalid/Missing Password");
+//        }
+        
+        self::validate_password($password);
 
         $this->password = sha1($password);
     }
@@ -319,7 +321,21 @@ class User {
     }
 
     private function setProfile_Image($profile_image) {
+//        echo("<pre>");
+//        print_r($profile_image);
+//        echo("</pre>");
+//        die;
+        
         extract($profile_image);
+        
+//Array
+//(
+//    [name] => 
+//    [type] => 
+//    [tmp_name] => 
+//    [error] => 4
+//    [size] => 0
+//)        
         if ($error == 4) {
             throw new Exception('*File Missing');
         }
@@ -328,6 +344,11 @@ class User {
         if (!$image_data) {
             throw new Exception('*Not a valid Image');
         }
+        
+//        echo("<pre>");
+//        print_r($image_data);
+//        echo("</pre>");
+//        die;
 
         if ($size > 500000) {
             throw new Exception('*MAx File Size is 500 KB');
@@ -336,14 +357,21 @@ class User {
         if ($type != 'image/jpeg') {
             throw new Exception('*Only Jpeg Allowed');
         }
+        
+//        echo("<pre>");
+//        print_r($profile_image);
+//        echo("</pre>");
+//
+//        echo("<pre>");
+//        print_r($image_data);
+//        echo("</pre>");
+//        die;
 
         if ($type == 'image/jpeg' && $type != $image_data['mime']) {
             throw new Exception('*Corrupt Image');
         }
 
-        $str_path = $_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project/users/userimages/' . $this->user_name . '/' . $this->user_name . '.jpg';
-//        echo($str_path);
-//        die;
+        $str_path = $_SERVER['DOCUMENT_ROOT'] . "/evs/php370/project/uploads/users/$this->user_name/$this->user_name.jpg";
 
         if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs')) {
 
@@ -354,38 +382,38 @@ class User {
 
 //        chmod($_SERVER['DOCUMENT_ROOT'] .  '/evs/', 0777);
 
-        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366')) {
+        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php370')) {
 
-            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366')) {
-                throw new Exception('*Failed to create folder evs/php366');
+            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php370')) {
+                throw new Exception('*Failed to create folder evs/php370');
             }
         }
 
-        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project')) {
+        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php370/project')) {
 
-            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project')) {
-                throw new Exception('*Failed to create folder evs/php366/project');
+            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php370/project')) {
+                throw new Exception('*Failed to create folder evs/php370/project');
             }
         }
 
-        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project/users')) {
+        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php370/project/uploads/')) {
 
-            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project/users')) {
-                throw new Exception('*Failed to create folder evs/php366/project/users');
+            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php370/project/uploads')) {
+                throw new Exception('*Failed to create folder evs/php370/project/uploads');
             }
         }
 
-        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project/users/userimages')) {
+        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php370/project/uploads/users/')) {
 
-            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project/users/userimages')) {
-                throw new Exception('*Failed to create folder evs/php366/project/users/userimages');
+            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php370/project/uploads/users')) {
+                throw new Exception('*Failed to create folder evs/php370/project/uploads/');
             }
         }
 
-        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project/users/userimages/' . $this->user_name)) {
+        if (!is_dir($_SERVER['DOCUMENT_ROOT'] . "/evs/php370/project/uploads/users/$this->user_name")) {
 
-            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project/users/userimages/' . $this->user_name)) {
-                throw new Exception('*Failed to create folder evs/php366/project/users/userimages/' . $this->user_name);
+            if (!mkdir($_SERVER['DOCUMENT_ROOT'] . "/evs/php370/project/uploads/users/$this->user_name")) {
+                throw new Exception("*Failed to create folder evs/php370/project/uploads/users/$this->user_name");
             }
         }
 
@@ -405,12 +433,12 @@ class User {
     }
 
     private function getProfile_Image() {
-        $str_path = $_SERVER['DOCUMENT_ROOT'] . '/evs/php366/project/users/userimages/' . $this->user_name . '/' . $this->user_name . '.jpg';
+        $str_path = $_SERVER['DOCUMENT_ROOT'] . "/evs/php370/project/uploads/users/$this->user_name/$this->user_name.jpg";
 
         if (is_file($str_path)) {
-            $img_src = 'http://' . $_SERVER['HTTP_HOST'] . '/evs/php366/project/users/userimages/' . $this->user_name . '/' . $this->user_name . '.jpg';
+            $img_src = "http://" . $_SERVER['HTTP_HOST'] . "/evs/php370/project/uploads/users/$this->user_name/$this->user_name.jpg";
         } else {
-            $img_src = 'http://' . $_SERVER['HTTP_HOST'] . '/evs/php366/project/users/userimages/no_img.gif';
+            $img_src = "http://" . $_SERVER['HTTP_HOST'] . "/evs/php370/project/uploads/users/no_img.jpg";
         }
 
         return $img_src;
@@ -560,71 +588,6 @@ class User {
 
     /*
 
-      public function profile() {
-
-      if ($this->id == 0) {
-      throw new Exception("*You Must Login");
-      }
-      $obj_db = self::get_obj_db();
-      //        $query_select = "select id, email, user_name, signup_date_time, status "
-      //                . " from users "
-      //                . " left join userprofiles "
-      //                . " on users.id = userprofiles.user_id "
-      //                . " where users.id = $this->id";
-      //alias
-      //        $query_select = "select u.id user_id, u.email, u.user_name, u.signup_date_time, "
-      //                . " u.status, up.id profile_id, up.user_id, up.first_name "
-      //                . " from users u "
-      //                . " left join userprofiles up "
-      //                . " on u.id = up.user_id "
-      //                . " where u.id = $this->id";
-
-      //             $query_select = "select u.id user_id, u.email, u.user_name, u.signup_date_time, "
-      //          . " up.id profile_id, up.user_id, up.first_name "
-      //          . " from users u "
-      //          . " join userprofiles up "
-      //          . " inner join userprofiles up "
-      //          . " left join userprofiles up "
-      //          . " right join userprofiles up "
-      //          . " on u.id = up.user_id "
-      //          . " where u.id = $this->id";
-
-      $query_select = "select users.id user_id, "
-      . " users.user_name, users.email, "
-      . " up.id profile_id, up.first_name,  "
-      . " up.middle_name, "
-      . " up.last_name, up.gender, date_format(up.date_of_birth, '%d-%m-%Y') date_of_birth, "
-      . " up.city_id, up.state_id, "
-      . " up.country_id "
-      . " from users "
-      . " join userprofiles up "
-      . " on users.id = up.user_id "
-      . " where users.id = $this->id";
-      //mysql resource
-      $result = $obj_db->query($query_select);
-      if ($obj_db->errno) {
-      throw new Exception("Profile Select User Error - $obj_db->error - $obj_db->errno");
-      }
-
-      if (!$result->num_rows) {
-      throw new Exception("*User Not Found");
-      }
-
-      $data = $result->fetch_object();
-
-      $this->user_name = $data->user_name;
-      $this->email = $data->email;
-      $this->gender = $data->gender;
-      //        $this->date_of_birth = date("d-m-Y", strtotime($data->date_of_birth));
-      $this->date_of_birth = $data->date_of_birth;
-      $this->first_name = $data->first_name;
-      $this->middle_name = $data->middle_name;
-      $this->last_name = $data->last_name;
-      $this->last_name = $data->last_name;
-      $this->state_id = $data->state_id;
-      $this->city_id = $data->city_id;
-      $this->country_id = $data->country_id;
-      }
 
       public function send_mail($subject, $msg) {
       //          mail($this->email, $subject, $msg);
@@ -644,20 +607,6 @@ class User {
       "Content-type: text/html; charset=iso-8859-1";
       mail($this->email, $subject, $msg, $header);
       }
-     */
-    /*
-      public function update_password() {
-      $obj_db = $this->get_db_conn();
-      $query_update = "update users set "
-      . " password = '$this->password' "
-      . " where user_id = $this->id";
-
-      $result = $obj_db->query($query_update);
-      if ($obj_db->errno) {
-      throw new Exception("Update Password Error - $obj_db->error - $obj_db->errno");
-      }
-      }
-     * 
      */
 
     public function update() {
@@ -684,6 +633,50 @@ class User {
         if ($obj_db->errno) {
             throw new Exception("Update Profile User Error - $obj_db->error - $obj_db->errno");
         }
+    }
+
+    public static function validate_password($password) {
+        if(empty($password)){
+            throw new Exception("*MIssing Password");
+        }
+        $reg = "/^[a-z][a-z0-9]{5,15}$/i";
+        if (!preg_match($reg, $password)) {
+            throw new Exception("*Invalid Password");
+        }
+    }
+
+    public static function comapre_passwords($password1, $password2) {
+        if(empty($password2)){
+            throw new Exception("MIssing Pasword");
+        }
+        if($password1 !== $password2){
+            throw new Exception("MIsmatched Password");
+        }
+    }
+    
+    public function update_password($new_password){
+        
+        $query_check  = "select id from users where "
+                . " id = $this->id "
+                . " and password = '$this->password'";
+        
+        $obj_db = self::get_obj_db();
+        $result = $obj_db->query($query_check);
+        if(!$result->num_rows){
+            throw new Exception("*Password Faield");
+        }
+  
+//        $new_password= sha1($new_password);
+        
+        $query_udpate = "update users set "
+                . " password = '" . sha1($new_password) . "' "
+                . " where id = $this->id";
+        
+        $result_update = $obj_db->query($query_udpate);
+        
+//        $obj_db->affected_rows
+        
+        
     }
 
 }

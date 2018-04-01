@@ -23,7 +23,7 @@ $obj_user->profile();
     <div id="heading-row">My Account</div>
 
     <div class="row">
-        <div class="cell cell-left"><a href='<?php echo(BASE_URL);?>users/change_image.php'>Change Image</a></div>
+        <div class="cell cell-left"><a href='<?php echo(BASE_URL);?>users/change_profile_image.php'>Change Image</a></div>
         <div class="cell cell-right">
             <img src='<?php echo($obj_user->profile_image);?>'>
             <span class="field-msg"></span>
