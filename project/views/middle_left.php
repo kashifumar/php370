@@ -6,13 +6,18 @@
                 <div id="category-heading">Categories</div>
                 <div id="categories">
                     <ul>
-                        <li><a href="#">Home Appliances</a></li>
-                        <li><a href="#">Office</a></li>
-                        <li><a href="#">Engineering</a></li>
-                        <li><a href="#">Laptops</a></li>
-                        <li><a href="#">Electronics</a></li>
-                        <li><a href="#">Mobiles</a></li>
-                        <li><a href="#">Others</a></li>
+<?php                        
+try {
+
+    $brands = Brand::get_products();
+    foreach($brands as $b){
+        echo("<li><a href='" . BASE_URL . "products/products.php?brand_id=$b->id'>$b->name</a></li>");        
+    }
+    
+} catch (Exception $ex) {
+    echo("<li>" . $ex->getMessage() . "</li>");
+}
+?>        
                     </ul>
                 </div>
                 <div id="news-letter-box">

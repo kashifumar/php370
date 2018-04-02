@@ -42,9 +42,10 @@ if(!$obj_user->LoggedIn && in_array($current, $restricted_pages)){
     <head>
         <meta charset="utf-8">
         <title>My Store Demo</title>
-        <link href="<?php echo(BASE_URL);?>css/styles.css" media="all" type="text/css" rel="stylesheet" />
         <link href="<?php echo(BASE_URL);?>css/bootstrap.css" media="all" type="text/css" rel="stylesheet" >
         <link href="<?php echo(BASE_URL);?>css/metallic.css" media="all" type="text/css" rel="stylesheet" >
+        <link href="<?php echo(BASE_URL);?>css/font-awesome.min.css" media="all" type="text/css" rel="stylesheet" >
+        <link href="<?php echo(BASE_URL);?>css/styles.css" media="all" type="text/css" rel="stylesheet" />
         <!--[if IE]>
         <style type="text/css"> 
         #header-banner-text-heading, .footer-menu { zoom: 1;}
@@ -109,8 +110,9 @@ else{
                     <ul class="header-menu">
                         <li><a href="<?php echo(BASE_URL);?>">Home</a></li>
                         <li><a href='<?php echo(BASE_URL);?>products/products.php'>Products</a></li>
-                        <li><a href='<?php echo(BASE_URL);?>products/products.php'>Top Products</a></li>
-                        <li><a href='<?php echo(BASE_URL);?>products/products.php'>New Products</a></li>
+                        <li><a href='<?php echo(BASE_URL);?>products/products.php?type=top'>Top Products</a></li>
+                        <li><a href='<?php echo(BASE_URL);?>products/products.php?type=new'>New Products</a></li>
+                        <li><a href='<?php echo(BASE_URL);?>products/products.php?type=sort&order=asc'><i class="fa fa-long-arrow-up"></i> Sort By Price</a></li>
                         <li><a href="<?php echo(BASE_URL);?>products/shopping_cart.php">Shopping Cart</a></li>
                         <li><a href="<?php echo(BASE_URL);?>products/check_out.php">Check Out</a></li>
                         <li><a href="<?php echo(BASE_URL);?>users/my_account.php">My Account</a></li>
