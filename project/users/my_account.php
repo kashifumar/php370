@@ -1,5 +1,6 @@
 <?php
 require_once '../models/User.php';
+require_once '../models/Brand.php';
 require_once '../views/header.php';
 //require_once '../views/header_banner.php';
 //require_once '../views/slider.php';

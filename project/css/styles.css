@@ -654,3 +654,7 @@ footer{
 
 /*************************form styles end****************************/
 
+.current_page{
+    background-color: #999999 !important;
+    color: white !important;
+}

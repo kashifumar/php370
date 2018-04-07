@@ -129,13 +129,41 @@ class Product {
         $this->category_id = $category_id;
     }
 
-    public static function get_products() {
+    public static function get_products($page_no = 1, $limit = 6, $type = "all", $brand_id = 0) {
+
+        $offset = self::caluclate_offset($page_no, $limit);
+
         $query = "select prod.id, prod.name, prod.description, prod.features, "
                 . " prod.unit_price, prod.quantity, prod.view_count, prod.image, "
                 . " prod.featured, prod.brand_id, prod.category_id, "
                 . " brands.name brand_name, brands.image brand_image "
                 . " from products prod "
                 . " left join brands on prod.brand_id = brands.id ";
+
+        if ($brand_id > 0) {
+            $query .= " where prod.brand_id = $brand_id";
+        }
+
+        $types = ['all', 'top', 'new'];
+
+        if (!in_array($type, $types)) {
+            $type = "all";
+        }
+
+        switch ($type) {
+            case "top":
+
+                $query .= " order by view_count desc ";
+                break;
+            case "new":
+
+                $query .= " order by id desc ";
+                break;
+        }
+
+
+
+        $query .= " limit $limit offset $offset";
         $ob_db = self::get_obj_db();
         $result = $ob_db->query($query);
         if ($ob_db->errno) {
@@ -204,6 +232,68 @@ class Product {
         $this->brand->name = $p->brand_name;
         $this->brand->image = $p->brand_image;
         $this->category_id = $p->category_id;
+    }
+
+    public static function pagination($item_per_page = 6, $brand_id = 0) {
+        $obj_db = self::get_obj_db();
+        $query = "select count(*) 'count' from products";
+
+        if ($brand_id > 0) {
+            $query .= " where brand_id = $brand_id";
+        }
+
+//        $query = "select name from products ";
+//        $query = "select products.name from products ";
+//        $query = "select p.name from products p";
+        //alias
+//        $query = "select id product_id, name product_name, unit_price as Price from products";
+        $result = $obj_db->query($query);
+
+        if (!$result->num_rows) {
+            throw new Exception("*Product(s) not found");
+        }
+
+        $data = $result->fetch_object();
+//        echo("\n" . $data->name);
+//        echo("\n" . $data->product_name);
+//        echo("\n" . $data->count(*));
+//        echo("<pre>");
+//        print_r($data);
+//        echo("</pre>");
+//        die;
+
+        $total_items = $data->count;
+
+        $total_pages = ceil($total_items / $item_per_page);
+
+        $pNUms = [];
+
+        for ($i = 1, $j = 0; $i <= $total_pages; $i++, $j += $item_per_page) {
+            $pNUms[$i] = $j;
+        }
+
+//        echo("<pre>");
+//        print_r($pNUms);
+//        echo("</pre>");
+//        
+//        die;
+        return $pNUms;
+    }
+
+    public static function caluclate_offset($page_no, $item_per_page) {
+
+        $offset = ($page_no - 1) * $item_per_page;
+        return $offset;
+        /*
+          $pNums = self::pagination($item_per_page);
+
+          if (isset($pNums[$page_no])) {
+          $offset = $pNums[$page_no];
+          return $offset;
+          }
+          return 0;
+         * 
+         */
     }
 
 }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+define('ITEM_PER_PAGE', 6);
 define('BASE_FOLDER', '/evs/php370/project/');
 define('BASE_URL', "http://" . $_SERVER['HTTP_HOST'] . BASE_FOLDER);
 
@@ -112,7 +113,7 @@ else{
                         <li><a href='<?php echo(BASE_URL);?>products/products.php'>Products</a></li>
                         <li><a href='<?php echo(BASE_URL);?>products/products.php?type=top'>Top Products</a></li>
                         <li><a href='<?php echo(BASE_URL);?>products/products.php?type=new'>New Products</a></li>
-                        <li><a href='<?php echo(BASE_URL);?>products/products.php?type=sort&order=asc'><i class="fa fa-long-arrow-up"></i> Sort By Price</a></li>
+                        <!--<li><a href='<?php // echo(BASE_URL);?>products/products.php?type=sort&order=asc'><i class="fa fa-long-arrow-up"></i> Sort By Price</a></li>-->
                         <li><a href="<?php echo(BASE_URL);?>products/shopping_cart.php">Shopping Cart</a></li>
                         <li><a href="<?php echo(BASE_URL);?>products/check_out.php">Check Out</a></li>
                         <li><a href="<?php echo(BASE_URL);?>users/my_account.php">My Account</a></li>
