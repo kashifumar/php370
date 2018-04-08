@@ -15,6 +15,13 @@ else{
     $obj_user = new User();
 }
 
+if (isset($_SESSION['obj_cart'])) {
+    $obj_cart = unserialize($_SESSION['obj_cart']);
+} else {
+    $obj_cart = new Cart();
+}
+
+
 $current = $_SERVER['PHP_SELF'];
 
 $public_pages = [
@@ -83,7 +90,7 @@ if(!$obj_user->LoggedIn && in_array($current, $restricted_pages)){
                     <div id="logo" class="full-height"><a href=""></a></div>
                     <div id="user-data" class="full-height">
                         <div>Welcome </div>
-                        <div>You have 0 items in your cart. Total $0</div>
+                        <div>You have <?php echo($obj_cart->count);?> items in your cart. Total $<?php echo($obj_cart->total_price);?></div>
                     </div>
                     <div id="top-header-right" class="full-height">
                         <div id="top-header-right-top">

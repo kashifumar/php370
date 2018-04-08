@@ -1,4 +1,5 @@
 <?php
+require_once '../models/Cart.php';
 require_once '../models/User.php';
 require_once '../models/Product.php';
 require_once '../models/Brand.php';
@@ -30,7 +31,7 @@ try {
                 . "\n<div class='product-price'>$ $p->unit_price</div>"
                 . "\n<div class='spacer11pxH'></div>"
                 . "\n<div class='add-to-cart-box'>"
-                . "\n<form action='#' method='post'>"
+                . "\n<form action='" . BASE_URL . "products/process/process_cart.php' method='post'>"
                 . "\n<input type='hidden' name='action' value='add_to_cart' />"
                 . "\n<input type='hidden' name='product_id' value='$p->id' />"
                 . "\n<input type='submit' value='Add to Cart - ' />"
