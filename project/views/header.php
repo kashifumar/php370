@@ -20,7 +20,9 @@ if (isset($_SESSION['obj_cart'])) {
 } else {
     $obj_cart = new Cart();
 }
-
+//echo("<pre>");
+//print_r($obj_cart);
+//echo("</pre>");
 
 $current = $_SERVER['PHP_SELF'];
 
@@ -31,7 +33,7 @@ $public_pages = [
 $restricted_pages = [
     BASE_FOLDER . 'users/my_account.php',
     BASE_FOLDER . 'users/edit_account.php',
-    BASE_FOLDER . 'products/check_out.php',
+    BASE_FOLDER . 'products/checkout.php',
 ];
 
 //echo(BASE_URL);
@@ -122,7 +124,7 @@ else{
                         <li><a href='<?php echo(BASE_URL);?>products/products.php?type=new'>New Products</a></li>
                         <!--<li><a href='<?php // echo(BASE_URL);?>products/products.php?type=sort&order=asc'><i class="fa fa-long-arrow-up"></i> Sort By Price</a></li>-->
                         <li><a href="<?php echo(BASE_URL);?>products/shopping_cart.php">Shopping Cart</a></li>
-                        <li><a href="<?php echo(BASE_URL);?>products/check_out.php">Check Out</a></li>
+                        <li><a href="<?php echo(BASE_URL);?>products/checkout.php">Check Out</a></li>
                         <li><a href="<?php echo(BASE_URL);?>users/my_account.php">My Account</a></li>
                     </ul>
                 </div>

@@ -27,6 +27,28 @@ if (isset($_POST['action'])) {
             $obj_cart->add_to_cart($item);
 
             break;
+        
+        case "update_cart":
+            $qtys = isset($_POST['qtys']) ? $_POST['qtys'] : [];
+            $obj_cart->udpate_cart($qtys);
+            break;
+    }
+}
+
+else if (isset($_GET['action'])) {
+    
+    switch ($_GET['action']) {
+        case "remove_item":
+
+            $item = new Item($_GET['product_id']);
+            $obj_cart->remove_item($item);
+
+            break;
+        case "empty_cart":
+
+            $obj_cart->empty_cart();
+
+            break;
     }
 }
 

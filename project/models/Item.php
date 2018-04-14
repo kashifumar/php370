@@ -12,16 +12,19 @@ class Item {
         $this->setQuantity($quantity);
     }
 
-    /*
+   
     public function __set($name, $value) {
         $method = "set$name";
+        $restricted = ['itemID'];
+        if(in_array($name, $restricted)){
+            throw new Exception("Cannot Set REad Only Property $name");
+        }
         if (!method_exists($this, $method)) {
             throw new Exception("SET Property $name does not exist");
         }
         $this->$method($value);
     }
-     * 
-     */
+     
 
     public function __get($name) {
         $method = "get$name";
